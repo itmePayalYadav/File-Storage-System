@@ -8,3 +8,8 @@ export const whiteListOrigin = [
   'http://localhost:5001',
   'http://localhost:8080',
 ];
+
+// ==============================
+// Byte Variables
+// ==============================
+export const Byte_Unit = 1024;
