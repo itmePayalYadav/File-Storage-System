@@ -18,3 +18,10 @@ export const Byte_Unit = 1024;
 // Storage Variables
 // ==============================
 export const Storage_Unit = 2 * 1024 * 1024 * 1024;
+
+// ==============================
+// API Key Variables
+// ==============================
+export const KEY_TYPE = {
+  LIVE: 'live',
+} as const;
