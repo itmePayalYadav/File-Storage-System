@@ -89,7 +89,7 @@ fileSchema.statics.calculateUsage = async function (
 };
 
 fileSchema.index({ userId: 1 });
-fileSchema.index({ createdAt: 1 });
+fileSchema.index({ createdAt: -1 });
 
 const File = model<FileDocument, FileModel>('File', fileSchema);
 
