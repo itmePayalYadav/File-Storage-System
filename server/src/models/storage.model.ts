@@ -1,9 +1,8 @@
 import File from '@/models/file.model';
 import { Storage_Unit } from '@/constant';
-import { Document, Types, Schema, model, Model } from 'mongoose';
-import { NotFound, Validation } from '@/utils/error';
 import { formateBytes } from '@/utils/helper';
-import { all } from 'axios';
+import { NotFound, Validation } from '@/utils/error';
+import { Document, Types, Schema, model, Model } from 'mongoose';
 
 interface IStorage {
   userId: Types.ObjectId;
