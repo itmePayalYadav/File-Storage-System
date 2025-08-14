@@ -1,10 +1,26 @@
 // ==============================
 // Error Handler Middleware
 // ==============================
+import { ZodError } from 'zod';
 import { ErrorRequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { AppError, NotFound } from '@/utils/error';
 import { Request, Response, NextFunction } from 'express';
+
+// ==============================
+// Zod Error Formatter
+// ==============================
+const formatedZodError = (res: Response, error: ZodError) => {
+  const errors = error?.issues.map((error) => ({
+    field: error.path.join('.'),
+    message: error.message,
+  }));
+  return res.status(StatusCodes.BAD_REQUEST).json({
+    message: 'Validation error',
+    status: 'error',
+    errors,
+  });
+};
 
 // ==============================
 // Global Error Middleware
@@ -18,13 +34,16 @@ export const errorMiddleware: ErrorRequestHandler = (error, req, res, next) => {
     return;
   }
 
+  if (error instanceof ZodError) {
+    return formatedZodError(res, error);
+  }
+
   if (error instanceof AppError) {
     res.status(error.statusCode).json({
       status: 'error',
       message: error.message,
       ...(error.details && { details: error.details }),
     });
-
     return;
   }
 

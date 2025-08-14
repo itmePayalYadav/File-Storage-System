@@ -20,16 +20,13 @@ import cookieParser from 'cookie-parser';
 // ==============================
 // Constants & Utilities
 // ==============================
-import {
-  errorMiddleware,
-  notFoundMiddleware,
-} from '@/middlewares/error-handler.middleware';
 import { whiteListOrigin } from '@/constant';
+import { errorMiddleware, notFoundMiddleware } from '@/middlewares';
 
 // ==============================
 // Routers & Error Handlers
 // ==============================
-// import router from '@/routes';
+import internalRoutes from '@/routes/internal';
 
 // ==============================
 // Express App Initialization
@@ -68,9 +65,7 @@ app.use(helmet());
 // ==============================
 // Routes
 // ==============================
-app.use('/api/v1', (_, res) => {
-  res.json({ message: 'API v1 is under construction' });
-});
+app.use(`${ENV.BASE_PATH}`, internalRoutes);
 
 // ==============================
 // NotFound
