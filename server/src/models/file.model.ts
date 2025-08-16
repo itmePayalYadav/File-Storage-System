@@ -66,6 +66,12 @@ const fileSchema = new Schema<FileDocument, FileModel>(
         return ret;
       },
     },
+    toJSON: {
+      transform: (_, ret) => {
+        ret.formattedSize = formateBytes(ret.size);
+        return ret;
+      },
+    },
   },
 );
 

@@ -6,6 +6,7 @@ export const formateBytes = (bytes: number): string => {
 
   while (bytes >= Byte_Unit && i < units.length - 1) {
     bytes /= Byte_Unit;
+    i++;
   }
 
   const value = new Intl.NumberFormat(undefined, {

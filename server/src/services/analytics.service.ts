@@ -111,7 +111,7 @@ export const getUserAnalyticsWithChartService = async (
     storageUsageSummary: {
       totalUsage: storageMetrics.usage,
       quota: storageMetrics.quota,
-      formattedTQuota: formateBytes(storageMetrics.quota),
+      formattedQuota: formateBytes(storageMetrics.quota),
     },
   };
 };
