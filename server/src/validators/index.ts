@@ -9,3 +9,7 @@ export {
   deleteFilesSchema,
   downloadFilesSchema,
 } from '@/validators/files.validator';
+export {
+  createApiKeySchema,
+  deleteApiKeySchema,
+} from '@/validators/api-key.validator';

@@ -31,6 +31,20 @@ export const uploadFilesViaWebController = asyncHandler(
   },
 );
 
+export const uploadFilesViaApiController = asyncHandler(
+  async (req: Request, res: Response) => {
+    const userId = req.user?._id;
+    const uploadVia = UploadSourceEnum.API;
+    const files = req.files as Express.Multer.File[];
+    const response = await uploadFilesService(userId, files, uploadVia);
+    return new ApiResponse(
+      StatusCodes.CREATED,
+      response,
+      'Files Uploaded Successfully',
+    ).send(res);
+  },
+);
+
 export const getAllFileController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
