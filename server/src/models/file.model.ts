@@ -60,7 +60,7 @@ const fileSchema = new Schema<FileDocument, FileModel>(
   },
   {
     timestamps: true,
-    toJSON: {
+    toObject: {
       transform: (_, ret) => {
         ret.formattedSize = formateBytes(ret.size);
         return ret;
