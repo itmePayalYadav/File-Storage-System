@@ -10,6 +10,7 @@ import {
   deleteFilesSchema,
   downloadFilesSchema,
 } from '@/validators';
+import { Readable } from 'stream';
 import { UploadSourceEnum } from '@/enums';
 import ApiResponse from '@/utils/response';
 import { Request, Response } from 'express';
@@ -52,12 +53,25 @@ export const getAllFileController = asyncHandler(
 export const publicGetFileUrlController = asyncHandler(
   async (req: Request, res: Response) => {
     const fileId = fileIdSchema.parse(req.params.fileId);
-    const { url } = await getFileService(fileId);
-    return new ApiResponse(
-      StatusCodes.OK,
-      url,
-      'File retrieved successfully.',
-    ).send(res);
+    const { stream, contentType, fileSize } = await getFileService(fileId);
+
+    res.set({
+      'Content-Type': contentType,
+      'Content-Length': fileSize,
+      'Cache-Control': 'public, max-age=3600',
+      'Content-Disposition': 'inline',
+      'X-Content-Type-Options': 'nosniff',
+    });
+
+    if (stream instanceof Readable) {
+      stream.pipe(res);
+    } else {
+      const chunks: Uint8Array[] = [];
+      for await (const chunk of stream as any) {
+        chunks.push(chunk);
+      }
+      res.end(Buffer.concat(chunks));
+    }
   },
 );
 

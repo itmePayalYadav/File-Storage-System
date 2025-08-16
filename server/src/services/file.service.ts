@@ -274,12 +274,13 @@ export const getFileService = async (fileId: string) => {
   if (!file) {
     throw new NotFound('File not found');
   }
-  const url = await getFileFromS3({
-    storageKey: file.storageKey,
-    mimeType: file.mimeType,
-    expiresIn: 3600,
-  });
-  return { url };
+  const stream = await getS3ReadStream(file.storageKey);
+  return {
+    url: '',
+    stream,
+    contentType: file.mimeType,
+    fileSize: file.size,
+  };
 };
 
 export const deleteFilesService = async (userId: string, fileIds: string[]) => {
