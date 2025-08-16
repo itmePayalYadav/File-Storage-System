@@ -13,6 +13,7 @@ import { ENV } from '@/config';
 // ==============================
 import express from 'express';
 import helmet from 'helmet';
+import passport from 'passport';
 import compression from 'compression';
 import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
@@ -26,6 +27,7 @@ import { errorMiddleware, notFoundMiddleware } from '@/middlewares';
 // ==============================
 // Routers & Error Handlers
 // ==============================
+import publicRoute from '@/routes/public';
 import internalRoutes from '@/routes/internal';
 
 // ==============================
@@ -61,10 +63,12 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(compression({ threshold: 1024 }));
 app.use(helmet());
+app.use(passport.initialize());
 
 // ==============================
 // Routes
 // ==============================
+app.use(publicRoute);
 app.use(`${ENV.BASE_PATH}`, internalRoutes);
 
 // ==============================

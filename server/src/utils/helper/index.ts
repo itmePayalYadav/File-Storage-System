@@ -14,3 +14,11 @@ export const formateBytes = (bytes: number): string => {
 
   return `${value} ${units[i]}`;
 };
+
+export const sanitizeFilter = (fileName: string) => {
+  return fileName
+    .replace(/[^a-zA-Z0-9-_.]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+--+$/g, '')
+    .trim();
+};

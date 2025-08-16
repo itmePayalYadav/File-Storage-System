@@ -50,7 +50,7 @@ const fileSchema = new Schema<FileDocument, FileModel>(
     },
     url: {
       type: String,
-      required: true,
+      required: false,
     },
     uploadVia: {
       type: String,

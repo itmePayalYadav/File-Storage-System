@@ -3,3 +3,4 @@ export {
   errorMiddleware,
   notFoundMiddleware,
 } from '@/middlewares/error-handler.middleware';
+export { CheckStorageAvailability } from '@/middlewares/check-storage.middleware';
